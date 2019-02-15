@@ -40,4 +40,8 @@ public class QueryResponse {
 		this.respData = respData;
 	}
 
+	@Override
+	public String toString() {
+		return "QueryResponse [action=" + action + ", response=" + response + ", respData=" + respData + "]";
+	}
 }

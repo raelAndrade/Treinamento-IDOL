@@ -16,7 +16,11 @@ public class ContentController {
 	@Autowired
 	private ContentService service;
 	
-	@RequestMapping(value="/treinamento/action={action}&text={text}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(
+			value="/trainings/action={action}&text={text}", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON
+	)	
 	public String search(@PathVariable("action") String action, @PathVariable("text") String text) {
 		return service.getResponse(action,text);
 	}

@@ -2,14 +2,18 @@ package br.com.imexperts.content.service;
 
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.stereotype.Service;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
+@Service
 public class ContentService {
 
-	static final String REST_URI = "http://52.67.27.141:9100/";
+	//private RestTemplate restTemplate;
+	static final String REST_URI = "http://54.232.215.49:9100/";
 	
 	public String getResponse(String action, String text) {
 		ClientConfig config = new DefaultClientConfig();   
@@ -20,9 +24,21 @@ public class ContentService {
         		.queryParam("Text", text)
         		.queryParam("ResponseFormat", "json")
         		.queryParam("Print", "fields")
-        		.queryParam("PrintFields", "DRECONTENT");
-        String msg = msgService.accept(MediaType.APPLICATION_JSON_TYPE).get(String.class);
-        System.out.println(msg);
-		return msg; 
-	}	
+        		.queryParam("PrintFields", "DRECONTENT,DRETITLE")
+        		.queryParam("Summary", "Context")
+        		.queryParam("Characters","200");
+        String obj = msgService.accept(MediaType.APPLICATION_JSON_TYPE).get(String.class);
+        obj = obj.replace("autn:", "autn");
+        System.out.println(obj);
+		return obj;
+	}
+	
+//	public QueryResponse buscar(String action, String text) {
+//		RequestEntity<Void> request = RequestEntity
+//				.get(URI.create(REST_URI))
+//				.build();
+//		ResponseEntity<QueryResponse> response = restTemplate.exchange(request, QueryResponse.class);
+//
+//		return response.getBody();
+//	}
 }
